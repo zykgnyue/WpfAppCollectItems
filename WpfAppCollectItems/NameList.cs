@@ -23,19 +23,14 @@ namespace WpfAppCollectItems
             {
 
                 case "FormatLastFirst":
-
                     name = values[1] + ", " + values[0];
-
                     break;
                 case "FormatNormal":
-
                     name = values[0] + " " + values[1];
-
                     break;
                 default:
-
+                    //convert string to listbox parameter=null
                     name = values[0] + " " + values[1] + " Email:" + values[2];
-
                     break;
 
             }
