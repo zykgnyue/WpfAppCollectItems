@@ -1,0 +1,90 @@
+﻿<Window x:Name="win1"  x:Class="WpfAppCollectItems.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfAppCollectItems"
+        mc:Ignorable="d"
+    Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <local:NameList x:Name="listData"  x:Key="NameListData"/>
+        <local:NameConverter x:Key="MyNameConverter"/>
+
+        <DataTemplate x:Key="NameItemTemplate">
+            <TextBlock>
+                <TextBlock.Text>
+                    <MultiBinding Converter="{StaticResource MyNameConverter}">
+                        <Binding Path="FirstName"/>
+                        <Binding Path="LastName"/>
+                        <Binding Path="EmailAddress"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        </DataTemplate>
+
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Background" Value="GreenYellow"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+
+    </Window.Resources>
+
+    <!--<Grid>
+        <ListBox Width="200"  
+         ItemsSource="{Binding Source={StaticResource NameListData}}"  
+         ItemTemplate="{StaticResource NameItemTemplate}"  
+         IsSynchronizedWithCurrentItem="True"/>
+    </Grid>-->
+
+
+    <StackPanel>
+        <Button x:Name="BtnAddPerson" 
+                Click="BtnAddPerson_Click"
+                HorizontalAlignment="Center"
+                Height="20"
+                Margin="0,10,0,0"
+                Content="Add Person"
+                />
+        
+        <TextBlock FontSize="18" FontWeight="Bold" Margin="10"
+                 Background="White" Width="Auto">MultiBinding Sample</TextBlock>
+        <ListBox x:Name="listBox1" Width="300"
+               ItemsSource="{Binding Source={StaticResource NameListData}}"
+               ItemTemplate="{StaticResource NameItemTemplate}"
+               IsSynchronizedWithCurrentItem="True"/>
+        
+        <TextBlock Padding="0,20,0,0" FontSize="11" Background="White">Normal Format:</TextBlock>
+        <TextBlock Name="textBox1" 
+                   DataContext="{StaticResource NameListData}" 
+                   Margin="0,0,0,0" Width="140">
+            <TextBlock.Text>
+                <MultiBinding Converter="{StaticResource MyNameConverter}"
+				  ConverterParameter="FormatNormal">
+                    <Binding Path="FirstName"/>
+                    <Binding Path="LastName"/>
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+
+
+
+        <TextBlock Padding="0,20,0,0" FontSize="11" Background="White">Last Name First Format:</TextBlock>
+
+        <TextBlock Name="textBox2" DataContext="{StaticResource NameListData}" Margin="0,0,0,0" Width="140">
+
+            <TextBlock.Text>
+                <MultiBinding Converter="{StaticResource MyNameConverter}"
+                      ConverterParameter="FormatLastFirst">
+                    <Binding Path="FirstName"/>
+                    <Binding Path="LastName"/>
+                </MultiBinding>
+            </TextBlock.Text>
+
+        </TextBlock>
+
+
+    </StackPanel>
+
+</Window>
